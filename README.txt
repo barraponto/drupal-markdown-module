@@ -23,15 +23,21 @@ For more information on Markdown, read:
 Quickstart
 --------------------------------------------------------------------------------
 
+0. Install the Libraries API module, available at http://drupal.org/project/libraries
+
 1. Move the entire "markdown" directory into your Drupal installation's
    sites/all/modules folder (or your site specific directory).
 
-2. Enable the module on Administer >> Site building >> Modules
+2. If there isn't one already, create a "libraries" folder at sites/all. Download the 
+   Markdown Extra library from http://michelf.com/projects/php-markdown/extra/ and
+   extract it to a folder named "markdown" inside sites/all/libraries
 
-3. Set up a new input format or add Markdown support to an existing format at
+3. Enable the module on Administer >> Site building >> Modules
+
+4. Set up a new input format or add Markdown support to an existing format at
    Administer >> Site configuration >> Input formats
 
-4. For best security, ensure that the HTML filter is after the Markdown filter
+5. For best security, ensure that the HTML filter is after the Markdown filter
    on the "Reorder" page of the input format and that only markup you would
    like to allow in via HTML and/or Markdown is configured to be allowed via the
    HTML filter.

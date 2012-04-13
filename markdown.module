@@ -100,7 +100,7 @@ And now some code:
  */
 function _filter_markdown($text, $format) {
   if (!empty($text)) {
-    include_once drupal_get_path('module', 'markdown') .'/markdown.php';
+    include_once libraries_get_path('markdown') . '/markdown.php';
     $text = Markdown($text);
   }
   return $text;
@@ -110,7 +110,7 @@ function _filter_markdown($text, $format) {
  * Filter settings callback. Just provides a version overview.
  */
 function _filter_markdown_settings($form, &$form_state, $filter, $format, $defaults) {
-  include_once drupal_get_path('module', 'markdown') .'/markdown.php';
+  include_once libraries_get_path('markdown') . '/markdown.php';
   $settings['markdown_wrapper'] = array(
     '#type' => 'fieldset',
     '#title' => t('Markdown'),
