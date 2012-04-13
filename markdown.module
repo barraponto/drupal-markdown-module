@@ -1,7 +1,13 @@
 <?php
 
-// == Core hooks ===============================================================
+/**
+ * @file
+ * Markdown module offers a markdown-to-html input filter.
+ */
 
+/**
+ * Implements hook_help().
+ */
 function markdown_help($path = 'admin/help#markdown', $arg) {
   switch ($path) {
     case 'admin/help#markdown':
@@ -10,6 +16,9 @@ function markdown_help($path = 'admin/help#markdown', $arg) {
   }
 }
 
+/**
+ * Implements hook_filter_info().
+ */
 function markdown_filter_info() {
   $filters['filter_markdown'] = array(
     'title' => t('Markdown'),
@@ -37,8 +46,8 @@ function _filter_markdown_tips($format, $long = FALSE) {
 }
 
 /**
-* Implements hook_block_view().
-*/
+ * Implements hook_block_view().
+ */
 function markdown_block_view($delta = '') {
   $block = array();
   switch ($delta) {
@@ -51,8 +60,8 @@ function markdown_block_view($delta = '') {
 }
 
 /**
-* Implements hook_block_info().
-*/
+ * Implements hook_block_info().
+ */
 function markdown_block_info() {
   $blocks = array();
   $blocks['markdown_help'] = array(
@@ -61,13 +70,11 @@ function markdown_block_info() {
   return $blocks;
 }
 
-// == Internal functions =======================================================
-
 /**
  * Provides content for the markdown help block.
  */
-function _markdown_help_block(){
-  return '<pre>'. t("
+function _markdown_help_block() {
+  return '<pre>' . t("
 ## Header 2 ##
 ### Header 3 ###
 #### Header 4 ####
@@ -92,7 +99,7 @@ Inline markup like _italics_,
 
 And now some code:
     // Code is indented text
-    is_easy() to_remember();") .'</pre>';
+    is_easy() to_remember();") . '</pre>';
 }
 
 /**
@@ -100,7 +107,7 @@ And now some code:
  */
 function _filter_markdown($text, $format) {
   if (!empty($text)) {
-    include_once drupal_get_path('module', 'markdown') .'/markdown.php';
+    include_once drupal_get_path('module', 'markdown') . '/markdown.php';
     $text = Markdown($text);
   }
   return $text;
@@ -110,14 +117,14 @@ function _filter_markdown($text, $format) {
  * Filter settings callback. Just provides a version overview.
  */
 function _filter_markdown_settings($form, &$form_state, $filter, $format, $defaults) {
-  include_once drupal_get_path('module', 'markdown') .'/markdown.php';
+  include_once drupal_get_path('module', 'markdown') . '/markdown.php';
   $settings['markdown_wrapper'] = array(
     '#type' => 'fieldset',
     '#title' => t('Markdown'),
   );
   $links = array(
-    'Markdown PHP Version: <a href="http://www.michelf.com/projects/php-markdown/">'. MARKDOWN_VERSION .'</a>',
-    'Markdown Extra Version: <a href="http://www.michelf.com/projects/php-markdown/">'. MARKDOWNEXTRA_VERSION .'</a>',
+    'Markdown PHP Version: <a href="http://www.michelf.com/projects/php-markdown/">' . MARKDOWN_VERSION . '</a>',
+    'Markdown Extra Version: <a href="http://www.michelf.com/projects/php-markdown/">' . MARKDOWNEXTRA_VERSION . '</a>',
   );
   $settings['markdown_wrapper']['markdown_status'] = array(
     '#title' => t('Versions'),
