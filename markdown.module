@@ -126,3 +126,25 @@ function _filter_markdown_settings($form, &$form_state, $filter, $format, $defau
   );
   return $settings;
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function markdown_form_filter_admin_format_form_alter(&$form, &$form_state, $form_id) {
+  $form['#validate'][] = 'markdown_validate_filter_order';
+}
+
+/**
+ * Checks filter order to preven buggy stacks with markdown filter.
+ */
+function markdown_validate_filter_order(&$form, &$form_state) {
+  $values = $form_state['values']['filters'];
+
+  if ($values['filter_markdown']['status']) {
+    foreach (array('filter_url', 'filter_html') as $filter) {
+      if ($values[$filter]['status'] && $values[$filter]['weight'] < $values['filter_markdown']['weight']) {
+        form_set_error('filter][order', t('Markdown filter must come before %filter to prevent buggy output.', array('%filter' => $form_state['complete form']['#filters'][$filter]->title)));
+      }
+    }
+  }
+}
